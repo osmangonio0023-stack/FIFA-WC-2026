@@ -1,220 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>World Cup 2026 Live TV</title>
-
+<title>FIFA WC 2026 Live</title>
+<link rel="manifest" href="manifest.json">
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
-}
-
-body{
-background:#0f172a;
-color:white;
-}
-
-header{
-background:#111827;
-padding:20px;
-text-align:center;
-font-size:28px;
-font-weight:bold;
-}
-
-.player-section{
-padding:20px;
-}
-
-video{
-width:100%;
-max-width:1100px;
-display:block;
-margin:auto;
-border-radius:15px;
-background:black;
-}
-
-.status{
-text-align:center;
-margin-top:10px;
-color:#22c55e;
-}
-
-.channels{
-padding:20px;
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-gap:15px;
-}
-
-.channel{
-background:#1e293b;
-padding:15px;
-border-radius:12px;
-text-align:center;
-cursor:pointer;
-transition:0.3s;
-}
-
-.channel:hover{
-transform:scale(1.05);
-background:#334155;
-}
-
-.channel h3{
-font-size:16px;
-}
-
-footer{
-text-align:center;
-padding:20px;
-color:#94a3b8;
-}
+body{background:#0f172a;color:#fff;font-family:Arial;margin:0}
+header{text-align:center;padding:20px;background:#111827}
+#countdown{text-align:center;padding:10px;color:#22c55e}
+#search{display:block;margin:15px auto;padding:10px;width:90%;max-width:500px}
+video{width:95%;max-width:1000px;display:block;margin:auto}
+.channels{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;padding:20px}
+.channel{background:#1e293b;padding:15px;border-radius:10px;cursor:pointer;text-align:center}
+.light{background:#fff;color:#000}
 </style>
 </head>
 <body>
-
 <header>
-🏆 FIFA World Cup 2026 Live TV
+<h1>🏆 FIFA WC 2026 Live TV</h1>
+<button onclick="toggleTheme()">Theme</button>
+<button onclick="fullscreenPlayer()">Fullscreen</button>
 </header>
-
-<div class="player-section">
-
+<div id="countdown"></div>
 <video id="video" controls autoplay></video>
-
-<div class="status" id="status">
-Select a channel
-</div>
-
-</div>
-
-<input
-type="text"
-id="search"
-placeholder="Search Channel..."
-onkeyup="searchChannel()"
-style="
-width:90%;
-max-width:500px;
-padding:12px;
-margin:20px auto;
-display:block;
-border-radius:10px;
-border:none;
-">
-
+<div id="status" style="text-align:center;padding:10px">Select Channel</div>
+<input id="search" placeholder="Search Channel..." onkeyup="searchChannel()">
 <div class="channels">
-
-<div class="channel" onclick="playStream('https://37b4c228.wurl.com/manifest/f36d25e7e52f1ba8d7e56eb859c636563214f541/UmFrdXRlblRWLWZyX0ZJRkFQbHVzRnJlbmNoX0hMUw/6f5437c5-e015-4754-8476-c8c6d27d3a55/1.m3u8','FIFA TV')">
-<h3>⚽ FIFA TV</h3>
+<div class="channel" onclick="playStream('https://owrcovcrpy.gpcdn.net/bpk-tv/1701/output/index.m3u8','Jamuna TV')">Jamuna TV</div>
+<div class="channel" onclick="playStream('https://owrcovcrpy.gpcdn.net/bpk-tv/1703/output/index.m3u8','News24')">News24</div>
+<div class="channel" onclick="playStream('https://owrcovcrpy.gpcdn.net/bpk-tv/1723/output/index.m3u8','Channel i')">Channel i</div>
+<div class="channel" onclick="playStream('https://37b4c228.wurl.com/manifest/f36d25e7e52f1ba8d7e56eb859c636563214f541/UmFrdXRlblRWLWZyX0ZJRkFQbHVzRnJlbmNoX0hMUw/6f5437c5-e015-4754-8476-c8c6d27d3a55/1.m3u8','FIFA TV')">FIFA TV</div>
 </div>
-
-<div class="channel" onclick="playStream('https://owrcovcrpy.gpcdn.net/bpk-tv/1701/output/index.m3u8','Jamuna TV')">
-<h3>📺 Jamuna TV</h3>
-</div>
-
-<div class="channel" onclick="playStream('https://owrcovcrpy.gpcdn.net/bpk-tv/1703/output/index.m3u8','News24')">
-<h3>📰 News24</h3>
-</div>
-
-<div class="channel" onclick="playStream('https://owrcovcrpy.gpcdn.net/bpk-tv/1705/output/index.m3u8','71 TV')">
-<h3>📡 71 TV</h3>
-</div>
-
-<div class="channel" onclick="playStream('https://owrcovcrpy.gpcdn.net/bpk-tv/1706/output/index.m3u8','ATN Bangla')">
-<h3>🎬 ATN Bangla</h3>
-</div>
-
-<div class="channel" onclick="playStream('https://owrcovcrpy.gpcdn.net/bpk-tv/1723/output/index.m3u8','Channel i')">
-<h3>📺 Channel i</h3>
-</div>
-
-<div class="channel" onclick="playStream('http://210.4.72.204/hls-live/livepkgr/_definst_/liveevent/livestream3.m3u8','Ekushey TV')">
-<h3>📺 Ekushey TV</h3>
-</div>
-
-<div class="channel" onclick="playStream('https://owrcovcrpy.gpcdn.net/bpk-tv/1722/output/index.m3u8','Maasranga TV')">
-<h3>📺 Maasranga</h3>
-</div>
-
-<div class="channel" onclick="playStream('https://byphdgllyk.gpcdn.net/hls/deeptotv/0_1/index.m3u8','Deepto TV')">
-<h3>📺 Deepto TV</h3>
-</div>
-
-<div class="channel" onclick="playStream('https://owrcovcrpy.gpcdn.net/bpk-tv/1704/output/index.m3u8','Independent TV')">
-<h3>📺 Independent</h3>
-</div>
-
-<div class="channel" onclick="playStream('https://owrcovcrpy.gpcdn.net/bpk-tv/1709/output/index.m3u8','BTV')">
-<h3>📺 BTV</h3>
-</div>
-
-<div class="channel" onclick="playStream('https://amg00627-amg00627c29-rakuten-it-3989.playouts.now.amagi.tv/playlist/amg00627-banijayfast-mrbeanitcc-rakutenit/playlist.m3u8','Mr Bean')">
-<h3>😂 Mr Bean</h3>
-</div>
-
-</div>
-
-<footer>
-World Cup 2026 Live Streaming Portal
-</footer>
-
 <script>
-
-let video = document.getElementById("video");
-let statusText = document.getElementById("status");
-let hls;
-
+let video=document.getElementById('video'); let hls;
 function playStream(url,name){
-
-statusText.innerText="Loading "+name+" ...";
-
-if(hls){
-hls.destroy();
-}
-
+document.getElementById('status').innerText='Loading '+name;
+if(hls){hls.destroy();}
 if(Hls.isSupported()){
-
-hls=new Hls();
-
-hls.loadSource(url);
-
-hls.attachMedia(video);
-
-hls.on(Hls.Events.MANIFEST_PARSED,function(){
-video.play();
-statusText.innerText="Now Playing : "+name;
-});
-
-hls.on(Hls.Events.ERROR,function(event,data){
-statusText.innerText=name+" stream unavailable";
-});
-
-}else if(video.canPlayType('application/vnd.apple.mpegurl')){
-
-video.src=url;
-
-video.addEventListener('loadedmetadata',function(){
-video.play();
-});
-
+hls=new Hls(); hls.loadSource(url); hls.attachMedia(video);
+hls.on(Hls.Events.MANIFEST_PARSED,()=>video.play());
+hls.on(Hls.Events.ERROR,()=>setTimeout(()=>playStream(url,name),5000));
 }
-
+localStorage.setItem('favorite',name);
 }
-
-playStream(
-'https://37b4c228.wurl.com/manifest/f36d25e7e52f1ba8d7e56eb859c636563214f541/UmFrdXRlblRWLWZyX0ZJRkFQbHVzRnJlbmNoX0hMUw/6f5437c5-e015-4754-8476-c8c6d27d3a55/1.m3u8',
-'FIFA TV'
-);
-
+function searchChannel(){
+let v=document.getElementById('search').value.toLowerCase();
+document.querySelectorAll('.channel').forEach(c=>c.style.display=c.innerText.toLowerCase().includes(v)?'block':'none');
+}
+function toggleTheme(){document.body.classList.toggle('light');}
+function fullscreenPlayer(){if(video.requestFullscreen)video.requestFullscreen();}
+const wcDate=new Date('2026-06-11');
+setInterval(()=>{let d=Math.floor((wcDate-new Date())/86400000);document.getElementById('countdown').innerText='World Cup Starts In '+d+' Days';},1000);
+if('serviceWorker' in navigator){navigator.serviceWorker.register('service-worker.js');}
 </script>
-
 </body>
 </html>

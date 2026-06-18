@@ -1,0 +1,8 @@
+{
+"name":"FIFA WC 2026 Live",
+"short_name":"WC2026",
+"display":"standalone",
+"start_url":"./",
+"background_color":"#0f172a",
+"theme_color":"#0f172a"
+}
